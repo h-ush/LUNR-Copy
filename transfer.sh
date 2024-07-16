@@ -13,6 +13,7 @@ AGAIN=""
 # ############################################################
 source $(pwd)/utility.sh
 source $(pwd)/logging.sh
+source $(pwd)/hashing.sh
 
 ##############################################################
 #
@@ -63,11 +64,13 @@ function rsync_content_check() {
     FIND_DIRECTORY=$(find "/home/$(logname)" -type d -name "${DIRECTORY_NAME}" | grep "${DIRECTORY_PATH}")
     echo "FOUND DIRECTORY: " ${DIRECTORY_PATH}
     echo "FIND_DIRECTORY: $FIND_DIRECTORY"
+    hash_creation ${FIND_DIRECTORY} # Hashes all files in directory 
     rsync --timeout=100 -r ${FIND_DIRECTORY} ${USERNAME}@${IP}:${LOCATION}
   elif [[ -f "${DIRECTORY_PATH}" ]]; then
     FIND_FILE=$(find "/home/$(logname)" -type f -name "${DIRECTORY_NAME}" | grep "${DIRECTORY_PATH}")
     echo "FOUND FILE: " ${DIRECTORY_PATH}
     echo "FIND_FILE: $FIND_FILE"
+    hash_creation ${FIND_FILE} # Hashes file 
     rsync --timeout=100 -r ${FIND_FILE} ${USERNAME}@${IP}:${LOCATION}
   else
     echo ""

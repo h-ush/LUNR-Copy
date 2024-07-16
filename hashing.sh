@@ -9,9 +9,17 @@
 function hash_creation() {
   FILE=$1
 
-  hashes=$(sha256sum "$@"; printf .)
-  hashes=${hashes%.}
-  printf "%s\n" "----"
-  printf "%s" "$hashes"
-  printf "%s\n" "----"
+  if [ -f ${FILE} ]; then
+    hashes=$(sha256sum "$@"; printf .)
+    hashes=${hashes%.}
+    printf "%s\n" "----"
+    printf "%s" "$hashes"
+    printf "%s\n" "----"
+  else
+    hashes=$(sha256sum "$@/"*; printf .)
+    hashes=${hashes%.}
+    printf "%s\n" "----"
+    printf "%s" "$hashes"
+    printf "%s\n" "----"
+  fi
 }
