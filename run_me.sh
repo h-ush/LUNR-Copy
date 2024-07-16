@@ -2,14 +2,14 @@
 
 ##############################################################
 #
-# OFFICIAL SCP TRANSPORT SCRIPT
+# OFFICIAL RSYNC TRANSPORT SCRIPT
 #
 # Functionality:
 #   This program will send files and directories across
 #   devices on the same network to seamlessly allow users
 #   have files stored in two locations. The program will
 #   create a log file on both devices so users are aware
-#   of the Secure Copy Activity that has perspired on their
+#   of the Copy Activity that has perspired on their
 #   device using this tool.
 #
 # Notes:
