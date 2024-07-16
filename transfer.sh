@@ -1,34 +1,4 @@
 #!/bin/bash
-##############################################################
-#
-# OFFICIAL SCP TRANSPORT SCRIPT
-#
-# Functionality:
-#   This program will send files and directories across
-#   devices on the same network to seamlessly allow users
-#   have files stored in two locations. The program will
-#   create a log file on both devices so users are aware
-#   of the Secure Copy Activity that has perspired on their
-#   device using this tool.
-#
-# Notes:
-#   1. Must create checks for files
-#   2. Must make sure script is compatible with Windows
-#   3. Set proper permissions on files as they are being
-#      transferred across systems
-#   4. Write a hash function to maintain integrity and
-#      verify if hashes of files match
-#   5. Write an encryption function to encrypt log data
-#   6. GO CRAZY HAVE FUN!
-#
-# Date Created: 07-03-2024
-#
-# Created by
-#   Craig Edelin Jr
-#
-#                                           VERSION 1.0
-#
-##############################################################
 
 DIRECTORY_PATH=""
 USERNAME=""
