@@ -12,14 +12,16 @@ function hash_creation() {
   if [ -f ${FILE} ]; then
     hashes=$(sha256sum "$@"; printf .)
     hashes=${hashes%.}
-    printf "%s\n" "----"
+    echo "----------------------------------------------------"
+    echo "FILE HASHES"
+    echo "----------------------------------------------------"
     printf "%s" "$hashes"
-    printf "%s\n" "----"
   else
     hashes=$(sha256sum "$@/"*; printf .)
     hashes=${hashes%.}
-    printf "%s\n" "----"
+    echo "----------------------------------------------------"
+    echo "DIRECTORY FILE HASHES"
+    echo "----------------------------------------------------"
     printf "%s" "$hashes"
-    printf "%s\n" "----"
   fi
 }

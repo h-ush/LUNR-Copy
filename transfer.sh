@@ -43,6 +43,8 @@ function rsync_content_check() {
   local IP=$3
   local LOCATION=$4
 
+  FIND_ALL_FILES=$(find "${DIRECTORY_PATH}" -type f)
+
   # Checks for a '~/' in user input for DIRECTORY_PATH so things
   # do not break
   if [[ "${DIRECTORY_PATH}" == "~/"* ]]; then
@@ -56,20 +58,24 @@ function rsync_content_check() {
   # Gets the file or directory name from specified path
   # Checks to see if target file or directory exists on
   # SENDER'S device
-  echo "DIRECTORY_PATH: $DIRECTORY_PATH"
-  echo "DIRECTORY_NAME: $DIRECTORY_NAME"
-  echo "----------------------------------------------------"
 
   if [[ -d "${DIRECTORY_PATH}" ]]; then
+    echo "DIRECTORY_PATH: $DIRECTORY_PATH"
+    echo "DIRECTORY_NAME: $DIRECTORY_NAME"
+    echo "----------------------------------------------------"
+
     FIND_DIRECTORY=$(find "/home/$(logname)" -type d -name "${DIRECTORY_NAME}" | grep "${DIRECTORY_PATH}")
-    echo "FOUND DIRECTORY: " ${DIRECTORY_PATH}
-    echo "FIND_DIRECTORY: $FIND_DIRECTORY"
-    hash_creation ${FIND_DIRECTORY} # Hashes all files in directory 
+
+    hash_creation ${FIND_DIRECTORY} ${FIND_ALL_FILES} # Hashes all files in directory 
     rsync --timeout=100 -r ${FIND_DIRECTORY} ${USERNAME}@${IP}:${LOCATION}
+
   elif [[ -f "${DIRECTORY_PATH}" ]]; then
+    echo "FILE_PATH: $DIRECTORY_PATH"
+    echo "FILE_NAME: $DIRECTORY_NAME"
+    echo "----------------------------------------------------"
+
     FIND_FILE=$(find "/home/$(logname)" -type f -name "${DIRECTORY_NAME}" | grep "${DIRECTORY_PATH}")
-    echo "FOUND FILE: " ${DIRECTORY_PATH}
-    echo "FIND_FILE: $FIND_FILE"
+
     hash_creation ${FIND_FILE} # Hashes file 
     rsync --timeout=100 -r ${FIND_FILE} ${USERNAME}@${IP}:${LOCATION}
   else

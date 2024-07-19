@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DEBUG=1
-LOG_LOCATION="/logs/"
+LOG_LOCATION="/home/$(logname)/lunr_copy_logs/"
 LOG_FILE=$(date "+%d-%m-%Y")_$(date +%T | sed s/':'/''/g)
 
 ##############################################################
@@ -71,18 +71,19 @@ function logERROR() {
 #
 ##############################################################
 function create_log_file() {
+  if ! [ -d "${LOG_LOCATION}" ]; then
+    mkdir -p "${LOG_LOCATION}"
+    logSUCCESS "LOG DIRECTORY ${LOG_LOCATION} CREATED!"
+  fi
+
   if ! [ -f $LOGFILE ]; then
-      if ! [ -d "${LOG_LOCATION}" ]; then
-        ${SUDO_PATH} mkdir -p "${LOG_LOCATION}"
-        logSUCCESS "LOG DIRECTORY ${LOG_LOCATION} CREATED!"
-      fi
       touch ${LOG_FILE}
   fi
 }
 
 ##############################################################
 function move_log_file_to_logs() {
-  ${SUDO_PATH} mv ${LOG_FILE} ${LOG_LOCATION}
+  mv ${LOG_FILE} ${LOG_LOCATION}
 }
 
 ##############################################################
